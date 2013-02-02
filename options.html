@@ -1,0 +1,63 @@
+<html>
+<head>
+	<title>#HashtagsOnFacebook Options</title>
+	<style type="text/css" charset="utf-8">
+		body {
+			font-family: 'Helvetica Neue',Arial;
+		}
+		a {
+			font-weight:800; color: #0094C2; text-decoration: none;
+		}
+		a:hover {
+			text-decoration: underline; color: #0084b4;
+		}
+		.container {
+			width: 100%; height: 100%;
+		}
+		.wrapper {
+			width: 760px; margin: 30px auto; position: relative;
+		}
+		.options-title {
+			font-size: 30px;
+		}
+		.radio-buttons {
+			font-size: 18px; padding: 20px 0px;
+		}
+		.save_button {
+			font-size: 24px; font-weight: 800; padding: 5px 10px; background-color: #0094C2; float: left;
+			color: white; border-radius: 5px; cursor: pointer;
+		}
+		.save_button:hover {
+			background-color: #0084b4;
+		}
+		#status {
+			float: left; padding: 10px; font-size: 18px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="wrapper">
+			<div class="options-title">
+				How do you want to deal with <a href="http://philditzler.tumblr.com/post/41968629888/hashtagsonfacebook">#HashtagsOnFacebook</a>?
+			</div>
+
+			<div class="radio-buttons" id="hashtags">
+				<input value="remove" id="hashtag_remove" name="hashtags" type="radio">
+					Remove them <br>
+				<input checked value="linkify" id="hashtag_linkify" name="hashtags" type="radio">
+					Link them to bonafide Twitter hashtags <br>
+				<input value="replace" id="hashtag_replace" name="hashtags" type="radio">
+					Replace them with <a href="https://twitter.com/search?q=%23belieber&src=hash">#Belieber</a> hashtags <br>
+			</div>
+
+			<div id="save" class="save_button">Save</div>
+			<div id="status"></div>
+		</div>
+	</div>
+</body>
+
+<script src="options.js"></script>
+
+</html>

@@ -1,0 +1,6 @@
+a.hashtags-on-facebook {
+	color: #0094C2;
+}
+a.hashtags-on-facebook:hover {
+	color: #0084b4; text-decoration: underline;
+}
