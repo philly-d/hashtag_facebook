@@ -57,9 +57,9 @@ var hashtagRegex = /(^|\s)#(\w+)/g,
 				if(hashtagSolution !== "linkify") {
 					this.innerHTML = this.innerHTML + ' ' + restoreSpan;
 					$(this).bind({mouseenter: function(){
-						$(this).find(".restore-hashtag").fadeIn();
+						$(this).find(".restore-hashtag").fadeIn('fast');
 					}, mouseleave: function(){
-						$(this).find(".restore-hashtag").fadeOut();
+						$(this).find(".restore-hashtag").fadeOut('fast');
 					}});
 					$(this).find(".restore-hashtag").on("click",function() {
 						var active = $(this).parent().find(".hashtags-on-facebook.active"),
