@@ -5,7 +5,8 @@ var hashtagRegex = /(^|\s)#(\w+)/g,
 	spanEnd = '</span>',
 	restoreSpan = '<span class="restore-hashtag">#<span>restore</span></span>',
 	classes = ".userContent, .UFICommentBody span, .webMessengerMessageGroup p, .hasCaption span, .text_exposed_root",
-	title,
+	pagelet_elements = "#pagelet_stream_pager, #pagelet_timeline_recent_more_pager",
+	url,
 	hashtags = [
 		"believe",
 		"belieberforever",
@@ -71,11 +72,11 @@ var hashtagRegex = /(^|\s)#(\w+)/g,
 		});
 	},
 	timer = function() { //timer to check for change in page title since FB dynamically loads DOM and extension script doesn't reload on page change
-		if(title !== document.title) {
-			title = document.title;
+		if(url !== document.URL) {
+			url = document.URL;
 			setTimeout(function(){
 				replaceHashtags();
-				$("#pagelet_stream_pager, #pagelet_timeline_recent_more_pager").bind('DOMSubtreeModified', function(event){ //called on paging change/infinite scroll
+				$(pagelet_elements).bind('DOMSubtreeModified', function(event){ //called on paging change/infinite scroll
 					replaceHashtags();
 				});
 			},1000);
@@ -97,10 +98,10 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 $(document).ready(function() {
 	setTimeout(function() {
 		replaceHashtags();
-		$("#pagelet_stream_pager, #pagelet_timeline_recent_more_pager").bind('DOMSubtreeModified', function(event){ //called on paging change/infinite scroll
+		$(pagelet_elements).bind('DOMSubtreeModified', function(event){ //called on paging change/infinite scroll
 			replaceHashtags();
 		});
-		title = document.title;
+		url = document.URL;
 		timer();
 	}, 1000);
 });
