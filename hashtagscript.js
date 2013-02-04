@@ -5,6 +5,7 @@ var hashtagRegex = /(^|\s)#(\w+)/g,
 	spanEnd = '</span>',
 	restoreSpan = '<span class="restore-hashtag">#<span>restore</span></span>',
 	classes = ".userContent, .UFICommentBody span, .webMessengerMessageGroup p, .hasCaption span, .text_exposed_root",
+	title,
 	hashtags = [
 		"believe",
 		"belieberforever",
@@ -68,6 +69,18 @@ var hashtagRegex = /(^|\s)#(\w+)/g,
 				}
 			}
 		});
+	},
+	timer = function() { //timer to check for change in page title since FB dynamically loads DOM and extension script doesn't reload on page change
+		if(title !== document.title) {
+			title = document.title;
+			setTimeout(function(){
+				replaceHashtags();
+				$("#pagelet_stream_pager, #pagelet_timeline_recent_more_pager").bind('DOMSubtreeModified', function(event){ //called on paging change/infinite scroll
+					replaceHashtags();
+				});
+			},1000);
+		}
+		setTimeout(timer,5000);
 	};
 chrome.storage.sync.get("hashtag_solution", function(obj) {
 	hashtagSolution = obj.hashtag_solution || "linkify";
@@ -80,9 +93,14 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 		}
 	}
 });
-$("#pagelet_stream_pager, #pagelet_timeline_recent_more_pager").bind('DOMSubtreeModified', function(event){ //called on paging change/infinite scroll
-	replaceHashtags();
-});
+
 $(document).ready(function() {
-	setTimeout(replaceHashtags, 1000);
+	setTimeout(function() {
+		replaceHashtags();
+		$("#pagelet_stream_pager, #pagelet_timeline_recent_more_pager").bind('DOMSubtreeModified', function(event){ //called on paging change/infinite scroll
+			replaceHashtags();
+		});
+		title = document.title;
+		timer();
+	}, 1000);
 });
