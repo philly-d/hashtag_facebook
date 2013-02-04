@@ -3,7 +3,7 @@ var hashtagRegex = /(^|\s)#(\w+)/g,
 	linkedHashtag = '$1<a href="https://twitter.com/search?q=%23$2&src=hash" target="_blank" class="hashtags-on-facebook">#$2</a>',
 	spanStart = '<span class="hashtag-wrapper">',
 	spanEnd = '</span>',
-	restoreSpan = '&nbsp;<span class="restore-hashtag">#restore</span>',
+	restoreSpan = '<span class="restore-hashtag">#restore</span>',
 	hashtags = [
 		"believe",
 		"belieberforever",
@@ -48,10 +48,11 @@ var hashtagRegex = /(^|\s)#(\w+)/g,
 		}
 	},
 	replaceHashtags = function() {
-		$(".userContent, .UFICommentBody span").each(function() {
+		$(".userContent, .UFICommentBody span, .webMessengerMessageGroup p, .hasCaption span").each(function() {
 			if(containsHashtag(this)){
-				this.innerHTML = hashtagOption(this.innerHTML) + restoreSpan;
+				this.innerHTML = hashtagOption(this.innerHTML);
 				if(hashtagSolution !== "linkify") {
+					this.innerHTML = this.innerHTML + ' ' + restoreSpan;
 					$(this).bind({mouseenter: function(){
 						$(this).find(".restore-hashtag").fadeIn();
 					}, mouseleave: function(){
@@ -78,10 +79,10 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 		}
 	}
 });
-setTimeout(function() {
-	replaceHashtags();
-}, 1500);
-
 $("#pagelet_stream_pager, #pagelet_timeline_recent_more_pager").bind('DOMSubtreeModified', function(event){ //called on paging change/infinite scroll
 	replaceHashtags();
 });
+
+setTimeout(function() {
+	replaceHashtags();
+}, 1500);
