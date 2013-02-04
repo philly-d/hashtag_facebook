@@ -4,6 +4,7 @@ var hashtagRegex = /(^|\s)#(\w+)/g,
 	spanStart = '<span class="hashtag-wrapper">',
 	spanEnd = '</span>',
 	restoreSpan = '<span class="restore-hashtag">#restore</span>',
+	classes = ".userContent, .UFICommentBody span, .webMessengerMessageGroup p, .hasCaption span, .text_exposed_root",
 	hashtags = [
 		"believe",
 		"belieberforever",
@@ -48,7 +49,7 @@ var hashtagRegex = /(^|\s)#(\w+)/g,
 		}
 	},
 	replaceHashtags = function() {
-		$(".userContent, .UFICommentBody span, .webMessengerMessageGroup p, .hasCaption span").each(function() {
+		$(classes).each(function() {
 			if(containsHashtag(this)){
 				this.innerHTML = hashtagOption(this.innerHTML);
 				if(hashtagSolution !== "linkify") {
@@ -82,7 +83,6 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 $("#pagelet_stream_pager, #pagelet_timeline_recent_more_pager").bind('DOMSubtreeModified', function(event){ //called on paging change/infinite scroll
 	replaceHashtags();
 });
-
-setTimeout(function() {
-	replaceHashtags();
-}, 1500);
+$(document).ready(function() {
+	setTimeout(replaceHashtags, 1000);
+});
