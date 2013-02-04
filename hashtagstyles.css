@@ -4,3 +4,17 @@ a.hashtags-on-facebook {
 a.hashtags-on-facebook:hover {
 	color: #0084b4; text-decoration: underline;
 }
+a.hashtags-on-facebook.active {
+	display:inline-block;
+}
+a.hashtags-on-facebook.hidden {
+	display:none;
+}
+.restore-hashtag {
+	display:none;
+	background-color:#0084b4;
+	color:white;
+	padding: 1px 5px;
+	cursor:pointer;
+	border-radius:5px;
+}
