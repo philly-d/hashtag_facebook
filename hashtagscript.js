@@ -3,7 +3,7 @@ var hashtagRegex = /(^|\s)#(\w+)/g,
 	linkedHashtag = '$1<a href="https://twitter.com/search?q=%23$2&src=hash" target="_blank" class="hashtags-on-facebook">#$2</a>',
 	spanStart = '<span class="hashtag-wrapper">',
 	spanEnd = '</span>',
-	restoreSpan = '<span class="restore-hashtag">#restore</span>',
+	restoreSpan = '<span class="restore-hashtag">#<span>restore</span></span>',
 	classes = ".userContent, .UFICommentBody span, .webMessengerMessageGroup p, .hasCaption span, .text_exposed_root",
 	hashtags = [
 		"believe",
